@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SafeZone | Prototype Dashboard</title>
+<style>
+:root{font-family:Inter,system-ui,Arial,sans-serif;color:#eaf0f7;background:#0b1220}
+body{margin:0;padding:28px;max-width:1000px;margin-inline:auto}
+h1{margin-bottom:6px}p{color:#aebbd0}.tag{display:inline-block;border:1px solid #34445e;border-radius:999px;padding:5px 10px;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:24px 0}
+.card{background:#131e30;border:1px solid #263650;border-radius:16px;padding:18px}
+.label{font-size:13px;color:#aebbd0}.value{font-size:27px;font-weight:700;margin-top:9px}
+.note{padding:14px;border-left:3px solid #e6b65c;background:#1b2433;color:#d9e1ee}
+button{background:#e6b65c;color:#172033;border:0;padding:10px 14px;border-radius:9px;font-weight:700;cursor:pointer}
+small{color:#9eacc2}
+</style>
+</head>
+<body>
+<span class="tag">DEMO · SIMULATED DATA</span>
+<h1>SafeZone</h1>
+<p>GPS + RFID emergency-zone speed-control prototype</p>
+<div class="grid">
+ <section class="card"><div class="label">GPS status</div><div class="value" id="gps">FIX OK</div></section>
+ <section class="card"><div class="label">Zone status</div><div class="value" id="zone">Approaching</div></section>
+ <section class="card"><div class="label">RFID confirmation</div><div class="value" id="rfid">Not confirmed</div></section>
+ <section class="card"><div class="label">Model motor command</div><div class="value" id="pwm">190 / 255</div></section>
+</div>
+<button id="toggle">Simulate RFID entry</button>
+<p><small>This page is a local UI mock-up. It does not receive live ESP32 data or control a vehicle.</small></p>
+<div class="note">Safety note: prototype-only demonstration. Never connect this dashboard or sample firmware to a real vehicle control system.</div>
+<script>
+let entered=false;
+document.getElementById('toggle').addEventListener('click',()=>{
+ entered=!entered;
+ document.getElementById('rfid').textContent=entered?'Confirmed':'Not confirmed';
+ document.getElementById('zone').textContent=entered?'Inside zone':'Approaching';
+ document.getElementById('pwm').textContent=entered?'90 / 255':'190 / 255';
+ document.getElementById('toggle').textContent=entered?'Simulate RFID exit':'Simulate RFID entry';
+});
+</script>
+</body>
+</html>
